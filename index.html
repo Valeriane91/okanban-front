@@ -212,8 +212,8 @@
             </div>
         </div>
     </section>
-
-    <div class="modal" id="addListModal">
+<!-- ajouter la classe is-active -->
+    <div class="modal is-active" id="addListModal">
         <div class="modal-background"></div>
         <div class="modal-card">
             <form action="" method="POST">
@@ -228,6 +228,31 @@
                             <input type="text" class="input" name="name" value="" placeholder="Nom de la liste">
                         </div>
                     </div>
+
+                    <!--création d'une nouelle liste dans le DOM-->
+                    <my-paragraph>
+                        <template id="my-paragraph">
+
+                    <div class="modal is-active" id="addListModal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <form action="" method="POST">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">Ajouter une liste</p>
+                                    <button class="delete close" type="button" aria-label="close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <div class="field">
+                                        <label class="label">Nom</label>
+                                        <div class="control">
+                                            <input type="text" class="input" name="name" value="" placeholder="Nom de la liste">
+                                        </div>
+                                    </div>
+                                </template>
+                              </my-paragraph>           
+
+
+
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-success">Save changes</button>
