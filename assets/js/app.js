@@ -88,7 +88,23 @@ var app = {
    * @param { String } listName 
    */
   makeListInDOM: (listName) => {
-    console.log(listName)
+    console.log(listName);
+
+    // Récupérer le template, 
+    const template = document.querySelector('#listTemplate');
+    // puis je duplique le HTML contenu dans le template
+    const newList = document.importNode(template.content, true);
+    // Grâce à maListe.querySelector, mettre à jour le nom de la liste.
+    newList.querySelector('h2').textContent = listName;
+    console.log(newList);
+
+    // Insérer la nouvelle liste dans le DOM au bon endroit ! 
+    // (sers toi par exemple de la méthode before ).
+    document.querySelector('.card-lists').appendChild(newList);
+
+    // Je referme la modale
+    app.hideModals();
+
   }
 
 
