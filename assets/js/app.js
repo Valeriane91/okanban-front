@@ -31,6 +31,11 @@ var app = {
     // for (const button of buttonsElements) {
     //   button.addEventListener('click', app.hideModals);
     // }
+
+    // On selection le formulaire d'ajout de liste.
+    const addListForm = document.querySelector('#addListModal form');
+    addListForm.addEventListener('submit', app.handleAddListForm);
+
   },
 
   /**
@@ -57,7 +62,35 @@ var app = {
       modal.classList.remove('is-active');
     };
 
+  },
+
+  /**
+   * Gère la soumission du formulaire d'ajout de liste.
+   * 
+   * @param { Event } event - Les infos sur l'évenement qui a déclanché l'appel.
+   */
+  handleAddListForm: (event) => {
+    // On empeche le formulaire de faire une requete POST par lui même.
+    // Et donc en empeche la page de se recharger.
+    event.preventDefault();
+    // console.log(event.target);
+    // récupère les données du formulaire
+    const formData = new FormData(event.target);
+    // console.log(formData.get('name'));
+
+    app.makeListInDOM(formData.get('name'));
+
+  },
+
+  /**
+   * Ajoute une liste dans notre page HTML.
+   * 
+   * @param { String } listName 
+   */
+  makeListInDOM: (listName) => {
+    console.log(listName)
   }
+
 
 };
 
