@@ -43,7 +43,7 @@
                                     </div>
 
                                     <div class="column is-narrow">
-                                        <a href="#" class="is-pulled-right">
+                                        <a href="#" class="is-pulled-right add-card-button">
                                             <span class="icon is-small has-text-white">
                                                 <i class="fas fa-plus"></i>
                                             </span>
@@ -99,7 +99,7 @@
                                     </div>
 
                                     <div class="column is-narrow">
-                                        <a href="#" class="is-pulled-right">
+                                        <a href="#" class="is-pulled-right add-card-button">
                                             <span class="icon is-small has-text-white">
                                                 <i class="fas fa-plus"></i>
                                             </span>
@@ -237,6 +237,37 @@
         </div>
     </div>
 
+    <div class="modal" id="addCardModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Ajouter une carte</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">Titre</label>
+                        <div class="control">
+                            <input type="text" class="input" name="title" value="" placeholder="Nom de la liste">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Couleur</label>
+                        <div class="control">
+                            <input type="color" class="input" name="color" value="" placeholder="Nom de la liste">
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <input type="hidden" name="list_id">
+                    <button class="button is-success">Save changes</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
     <template id="listTemplate">
         <div class="column is-one-quarter panel" data-list-id="A">
             <div class="panel-heading has-background-info">
@@ -247,7 +278,7 @@
                     </div>
 
                     <div class="column is-narrow">
-                        <a href="#" class="is-pulled-right">
+                        <a href="#" class="is-pulled-right add-card-button">
                             <span class="icon is-small has-text-white">
                                 <i class="fas fa-plus"></i>
                             </span>
@@ -259,6 +290,29 @@
             </div>
         </div>
     </template>
+
+    <template id="cardTemplate">
+        <div class="box" data-card-id="">
+            <div class="columns">
+                <div class="column card__title">
+                    
+                </div>
+                <div class="column is-narrow">
+                    <a href="#">
+                        <span class="icon is-small has-text-primary">
+                            <i class="fas fa-pencil-alt"></i>
+                        </span>
+                    </a>
+                    <a href="#">
+                        <span class="icon is-small has-text-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </template>
+
 
     <!-- Chargement de mon fichier JS -->
     <script src="./assets/js/app.js"></script>

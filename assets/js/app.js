@@ -36,6 +36,23 @@ var app = {
     const addListForm = document.querySelector('#addListModal form');
     addListForm.addEventListener('submit', app.handleAddListForm);
 
+    // on récupère les boutons "+" situées sur les listes.
+    const plusButtonsElements = document.querySelectorAll('.add-card-button');
+    // Pour chaque click sur ces boutons on appelle la fonction qui ouvre la
+    // modale contenant le formulaire d'ajout de carte
+    plusButtonsElements.forEach((button) => {
+      button.addEventListener('click', app.showAddCardModal);
+    });
+
+      // alternative
+    // for (const button of plusButtonsElements) {
+    //   button.addEventListener('click', app.showAddCardModal);
+    // }
+
+    // On capture l'évenement 'submit' généré par le formulaire d'ajout de carte 
+    const addCardForm = document.querySelector('#addCardModal form');
+    addCardForm.addEventListener('submit', app.handleAddCardForm);
+
   },
 
   /**
@@ -46,7 +63,39 @@ var app = {
   showAddListModal: (event) => {
     // console.log("Log de l'event :  ", event);
     const modale = document.getElementById('addListModal');
+
+   
     // console.log(modale);
+    modale.classList.add('is-active');
+  },
+
+
+  /**
+   * Affiche la modale d'ajout d'une carte en réaction au click sur le bouton "+".
+   * 
+   * @param { Event } event - Les infos sur l'évenement en cours.
+   */
+   showAddCardModal: (event) => {
+    // console.log("Log de l'event :  ", event);
+    const modale = document.getElementById('addCardModal');
+
+    // .closest('.panel') nous permet de récupérer la liste dans laquelle
+    // est contenue le bouton "+" qui a été cliqué.
+    // closest() donctionne comme querySelector mais recherche dans les parents
+    // plutot que dans les enfants d'un élément.
+    const listElement = event.target.closest('.panel');
+    // Pour retrouver l'id de la liste depuis 
+    // son l'élément HTML correspondant, 
+    // utilise element.getAttribute('data-list-id') ou 
+    // element.dataset.listId 
+    // console.log(modale);
+
+    // Je récupère l'ID de la liste
+    const listId = listElement.getAttribute('data-list-id');
+    
+    // je l'insere dans mon input caché
+    modale.querySelector('input[name="list_id"]').value = listId;
+
     modale.classList.add('is-active');
   },
 
@@ -82,6 +131,16 @@ var app = {
 
   },
 
+  handleAddCardForm: (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+
+    // console.log(formData.get('title'));
+    app.makeCardInDOM(formData.get('title'), formData.get('list_id'));
+    
+  },
+
   /**
    * Ajoute une liste dans notre page HTML.
    * 
@@ -105,8 +164,34 @@ var app = {
     // Je referme la modale
     app.hideModals();
 
-  }
+  },
 
+  /**
+   * Créé une nouvelle carte dans la page HTML.
+   * 
+   * @param { String } title - titre de la carte 
+   * @param { String } listId - ID de la liste dans laquelle on va insérer la carte 
+   */
+  makeCardInDOM: (title, listId) => {
+
+    // Récupérer le template, 
+    const template = document.querySelector('#cardTemplate');
+    // puis je duplique le HTML contenu dans le template
+    const newCard = document.importNode(template.content, true);
+
+    // on insére le titre de la nouvelle carte dans le HTML de la nouvelle carte 
+    newCard.querySelector('.card__title').textContent = title;
+    // console.log(newCard);
+
+    // // Insérer la nouvelle carte dans le DOM au bon endroit ! 
+    // Le bon endroit est la liste qui a pour attribut data-list-id la valeur
+    // passé en parametre dans la variable listId
+    document.querySelector(`[data-list-id="${listId}"] .panel-block`).appendChild(newCard);
+
+    // // Je referme la modale
+    app.hideModals();
+
+  }
 
 };
 
