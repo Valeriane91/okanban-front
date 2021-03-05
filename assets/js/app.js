@@ -155,7 +155,11 @@ var app = {
     const newList = document.importNode(template.content, true);
     // Grâce à maListe.querySelector, mettre à jour le nom de la liste.
     newList.querySelector('h2').textContent = listName;
-    console.log(newList);
+    // console.log(newList);
+
+    // On rajouter un écouter d'evenement pour gérer le clic sur le bouton
+    // "+" de notre nouvelle liste.
+    newList.querySelector('.add-card-button').addEventListener('click', app.showAddCardModal);
 
     // Insérer la nouvelle liste dans le DOM au bon endroit ! 
     // (sers toi par exemple de la méthode before ).
@@ -186,6 +190,7 @@ var app = {
     // // Insérer la nouvelle carte dans le DOM au bon endroit ! 
     // Le bon endroit est la liste qui a pour attribut data-list-id la valeur
     // passé en parametre dans la variable listId
+    console.log(listId);
     document.querySelector(`[data-list-id="${listId}"] .panel-block`).appendChild(newCard);
 
     // // Je referme la modale
