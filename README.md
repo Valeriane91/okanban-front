@@ -2,6 +2,15 @@
 
 ## Dynamic data !
 
+Pour créer la nouvelle remote : 
+`git remote add correction git@github.com:O-clock-Quill/S07-okanban-front-olivier-oclock.git`
+
+Pour importer la crrection
+
+`git checkout master`
+
+`git pull -X theirs --force --allow-unrelated-histories correction master`
+
 C'est l'heure de brancher notre application sur les vrais données !
 
 #### Supprimer les fausses listes et les fausses cartes
