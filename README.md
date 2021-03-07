@@ -1,13 +1,11 @@
 # oKanban-front, jour 1
 
-<<<<<<< HEAD
-=======
 ## Dynamic data !
 
 Pour créer la nouvelle remote : 
 `git remote add correction git@github.com:O-clock-Quill/S07-okanban-front-olivier-oclock.git`
 
-Pour importer la crrection
+Pour importer la correction
 
 `git checkout master`
 
@@ -113,7 +111,6 @@ Attention :
 ---
 
 
->>>>>>> 50cdb797b380bb91ebf442139183b0b330642092
 ## Static force
 
 Pour ce projet, nous n'allons pas utiliser de serveur !

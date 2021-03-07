@@ -1,76 +1,12 @@
 
+//ajouter une propriété `base_url` dans app
+const url = new URL('http://okanban:okanban@localhost:5432/okanban');
+
+//const response = await fetch(new URL('http://okanban:okanban@localhost:5432/okanban'));
 // on objet qui contient des fonctions
 var app = {
 
   // fonction d'initialisation, lancée au chargement de la page
-<<<<<<< HEAD
-  init: function (addListenerToActions) {
-    console.log('app.init !', addListenerToActions);
-    //une fois qu'on a fait une fonction il faut l'appeler
-    app.addListenerToActions();
-  }
-  // Ajout d'une méthode addListenerToActions et récupérer le bouton "ajouter une liste"
-  addListenerToActions: () => {
-    const buttonElement = document.getElementById('addListButton');
-    //console.log(buttonElement);
-    buttonElement.addEventListener("click", app.showAddListModal);
-
-    // gestion des bouton de fermeture de la modale
-
-    const bouton = document.querySelectorAll('.modal .close'); // les elements qui ont la classe modal et la classe close avec queryselector
-    //console.log(bouton);
-    bouton.forEach(buts) => { 
-    buts.addEventListener("click", app.hideModals);};
-    // bouton ce n'est pas un élément html mais une liste
-    //donc il faut faire un for each
-
-
-    
-    //récupérer le bon formulaire grâce à document.querySelector
-    const formulaire = document.querySelector("#input");
-    formulaire.addEventListener("submit", app.handleAddListForm);
-  
-
-
-  handleAddListForm: (event) => {
-
-   // document.getElementById("").innerHTML += "Sorry! <code>preventDefault()</code> won't let you check this!<br>";
-    event.preventDefault();
-    console.log(event.target);// target c'est qui a déclencher l'élément
-    const formData = new FormData(evant.target);//va consulter le contenu de chaque formulaire et le mettre a disposition
-
-
-
-  }
-  // coder hideModals qui enlève la classe "is-active" à toutes les modales
-
-  hideModals: function () {
-    var modal = document.getElementById("close");
-    modal.classList.remove("modal is-active");
-
-  }
-
-  //Ajout de la méthode showAddListModal
-  showAddListModal: (event) => {
-    var addModal = document.getElementById("addListModal");
-    addModal.classList.add('is-active');
-  
-  }
-
-};
-
-var app = {
-
-  makeListInDOM: function () {
-
-    var template = document.getElementById('my-paragraph');
-    var templateContent = template.content;
-    //document.body.appendChild(templateContent);
-  
-  }
-
-
-=======
   init: function () {
     console.log('app.init !');
     app.addListenerToActions();
@@ -186,23 +122,23 @@ var app = {
    * 
    * @param { Event } event - Les infos sur l'évenement qui a déclanché l'appel.
    */
-  handleAddListForm: (event) => {
+  handleAddListForm: async (event) => {
     // On empeche le formulaire de faire une requete POST par lui même.
     // Et donc en empeche la page de se recharger.
     event.preventDefault();
     // console.log(event.target);
     // récupère les données du formulaire
-    const formData = new FormData(event.target);
+    const formData = await new FormData(event.target);
     // console.log(formData.get('name'));
 
     app.makeListInDOM(formData.get('name'));
 
   },
 
-  handleAddCardForm: (event) => {
+  handleAddCardForm: async (event) => {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
+    const formData = await new FormData(event.target);
 
     // console.log(formData.get('title'));
     app.makeCardInDOM(formData.get('title'), formData.get('list_id'));
@@ -266,13 +202,32 @@ var app = {
 
   }
 
->>>>>>> 50cdb797b380bb91ebf442139183b0b330642092
+
+getListsFromAPI: async (request, response) => {
+
+fetch('GET/lists')
+.then(function(response) {
+  const list = await List.create({
+  name
+});
+
+// On renvoie à notre client la liste qui a été enregistrée en BDD
+await response.json(list);
+
+
+}).catch(function(error) {
+  console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+});
+
+
+  }
+
+
+
+
+
 };
 
 
 // on accroche un écouteur d'évènement sur le document : quand le chargement est terminé, on lance app.init
-<<<<<<< HEAD
-document.addEventListener('DOMContentLoaded', app.init );
-=======
 document.addEventListener('DOMContentLoaded', app.init);
->>>>>>> 50cdb797b380bb91ebf442139183b0b330642092
