@@ -1,6 +1,4 @@
 
-//ajouter une propriété `base_url` dans app
-const url = new URL('http://okanban:okanban@localhost:5432/okanban');
 
 //const response = await fetch(new URL('http://okanban:okanban@localhost:5432/okanban'));
 // on objet qui contient des fonctions
