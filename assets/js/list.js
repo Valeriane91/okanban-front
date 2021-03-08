@@ -170,11 +170,19 @@ const listModule = {
      */
     handleEditListForm: async (event) => {
         event.preventDefault();
-        console.log('coucou');
+
 
         // Récupérer les données du formulaire.
         const formData = new FormData(event.target);
         const listId = formData.get('id');
+
+        // Résumé du try/catch
+        // donc l'ordre c'est qu'on modifie un titre de liste, 
+        // mais entre le moment où on modifie et le moment où on voit le titre s'affiché,
+        //  on fait une requête PUT/PATCH vers la bdd pour voir si le titre remplit 
+        // les conditions de sécurité établis en back et ensuite, 
+        // si la bdd nous dit ok c'est bon, le nouveau titre est validé et il 
+        // s'inscrit dans notre liste en lieu et place du précédent titre.
         
         try {
             // Faire une requete vers l'API pour enregistrer en BDD la modification
