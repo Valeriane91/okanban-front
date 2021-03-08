@@ -7,7 +7,9 @@ const app = {
    */
   base_url: 'http://localhost:3000',
 
-  // fonction d'initialisation, lancée au chargement de la page
+  /**
+   * Initialisation de l'application.
+   */
   init: function () {
     app.addListenerToActions();
     listModule.getListsFromAPI();

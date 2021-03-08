@@ -107,7 +107,16 @@ const listModule = {
         const newList = document.importNode(template.content, true);
         // Grâce à maListe.querySelector, mettre à jour le nom de la liste.
         newList.querySelector('h2').textContent = listName;
+        // On prérempli le champs d'édition du nom de la liste avec le nom de la liste
+        newList.querySelector('form input[name="name"]').value = listName;
+        newList.querySelector('form input[name="id"]').value = listId;
+
+
         // console.log(newList);
+        // au double click sur une liste, on affiche le formulaire de modification
+        // d'une liste
+        newList.querySelector('h2').addEventListener('dblclick', listModule.showEditListForm);
+        newList.querySelector('form').addEventListener('submit', listModule.handleEditListForm);
 
         // On écrit dans le code HTML de notre liste son identifiant. 
         newList.querySelector('.panel').setAttribute('data-list-id', listId);
@@ -124,5 +133,77 @@ const listModule = {
         app.hideModals();
 
     },
+
+    /**
+     * Affiche le formulaire d'édition d'une liste.
+     * 
+     * @param { Event } event 
+     */
+    showEditListForm: (event) => {
+        console.log(`Èdition d'une liste`);
+
+        // on récupère la liste concérnée par la modification
+        // pour ensuite dans cette liste vernir modifier les éléments
+        // pour passer la liste en mode "édition"
+        const listElement = event.target.closest('.panel');
+
+        // afficher le formulaire d'édition
+        // en lui enlevant la classe `is-hidden`
+        listElement.querySelector('form').classList.remove('is-hidden');
+
+        const input = listElement.querySelector('form input[name="name"]');
+        // permet d'automatiquement mettre le curseur dans le champs
+        // comme si l'utilisateur avait cliqué dessus.
+        input.focus();
+
+        // console.log(input);
+        // masquer le titre
+        // en lui ajoutant la classe `is-hidden`
+        listElement.querySelector('h2').classList.add('is-hidden');
+        
+    },
+
+    /**
+     * Traitement du formulaire d'édition d'une liste
+     * 
+     * @param { Event } event 
+     */
+    handleEditListForm: async (event) => {
+        event.preventDefault();
+        console.log('coucou');
+
+        // Récupérer les données du formulaire.
+        const formData = new FormData(event.target);
+        const listId = formData.get('id');
+        
+        try {
+            // Faire une requete vers l'API pour enregistrer en BDD la modification
+            // du titre de la liste
+            const requestParam = {
+                method: 'PATCH',
+                body: formData
+            };
+            const response = await fetch(`${app.base_url}/lists/${listId}`, requestParam);
+            
+            if (!response.ok) {
+                // si tout va mal
+                const error = await response.json();
+                throw error;
+            }
+
+            // Si tout va bien, modifier le H2 de la liste avec le titre.
+            const listElement = event.target.closest('.panel');
+            listElement.querySelector('h2').textContent = formData.get('name');
+            
+            // On masque le formulaire et on ré-affiche le titre.
+            listElement.querySelector('form').classList.add('is-hidden');
+            listElement.querySelector('h2').classList.remove('is-hidden');
+            
+        } catch (error) {
+            console.log(error);   
+        }
+       
+
+    }
 
 }
