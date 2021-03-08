@@ -29,7 +29,7 @@ var app = {
     // pour chaque liste
     for (const list of lists) {
       // créer un bloc de HTML dans notre page
-      app.makeListInDOM(list.name);
+      app.makeListInDOM(list.name, list.id);
     }
   },
 
@@ -169,9 +169,10 @@ var app = {
   /**
    * Ajoute une liste dans notre page HTML.
    * 
-   * @param { String } listName 
+   * @param { String } listName - nom de la liste
+   * @param { Number } listId - identifiant de la liste
    */
-  makeListInDOM: (listName) => {
+  makeListInDOM: (listName, listId) => {
     console.log(listName);
 
     // Récupérer le template, 
@@ -181,6 +182,9 @@ var app = {
     // Grâce à maListe.querySelector, mettre à jour le nom de la liste.
     newList.querySelector('h2').textContent = listName;
     // console.log(newList);
+
+    // On écrit dans le code HTML de notre liste son identifiant. 
+    newList.querySelector('.panel').setAttribute('data-list-id', listId);
 
     // On rajouter un écouter d'evenement pour gérer le clic sur le bouton
     // "+" de notre nouvelle liste.
