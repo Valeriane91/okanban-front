@@ -26,10 +26,21 @@ var app = {
     const lists = await response.json();
     console.log(lists);
 
-    // pour chaque liste
+    // pour chaque liste reçue via l'API
     for (const list of lists) {
       // créer un bloc de HTML dans notre page
       app.makeListInDOM(list.name, list.id);
+
+      // Pour chaque liste, on veut récupérer la liste des cartes
+      const responseCards = await fetch(`${app.base_url}/lists/${list.id}/cards`);
+      const cards = await responseCards.json();
+
+      // pour chaque carte reçue via l'API
+      for (const card of cards) {
+          //  on veut créer un bloc de HTML et l'insérer dans la bonne liste
+          app.makeCardInDOM(card.title, card.list_id, card.id);
+      }
+
     }
   },
 
@@ -203,9 +214,10 @@ var app = {
    * Créé une nouvelle carte dans la page HTML.
    * 
    * @param { String } title - titre de la carte 
-   * @param { String } listId - ID de la liste dans laquelle on va insérer la carte 
+   * @param { Number } listId - ID de la liste dans laquelle on va insérer la carte 
+   * @param { Number } cardId - ID de la carte 
    */
-  makeCardInDOM: (title, listId) => {
+  makeCardInDOM: (title, listId, cardId) => {
 
     // Récupérer le template, 
     const template = document.querySelector('#cardTemplate');
@@ -215,6 +227,7 @@ var app = {
     // on insére le titre de la nouvelle carte dans le HTML de la nouvelle carte 
     newCard.querySelector('.card__title').textContent = title;
     // console.log(newCard);
+    newCard.querySelector('.box').setAttribute('data-card-id', cardId);
 
     // // Insérer la nouvelle carte dans le DOM au bon endroit ! 
     // Le bon endroit est la liste qui a pour attribut data-list-id la valeur
