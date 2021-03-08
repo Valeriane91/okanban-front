@@ -2,10 +2,35 @@
 // on objet qui contient des fonctions
 var app = {
 
+  /**
+   * URL de base pour faire des requetes vers notre API.
+   */
+  base_url: 'http://localhost:3000',
+
   // fonction d'initialisation, lancée au chargement de la page
   init: function () {
     console.log('app.init !');
     app.addListenerToActions();
+    app.getListsFromAPI();
+  },
+
+  /**
+   * Récupère les listes depuis l'API et créé le HTML correspondant dans la page.
+   */
+  getListsFromAPI: async () => {
+
+    // On récupère les données depuis l'API
+    const response = await fetch(`${app.base_url}/lists`);
+    // console.log(response);
+    // On les converti en un tableau d'objets JS qu'on stocke dans une variable.
+    const lists = await response.json();
+    console.log(lists);
+
+    // pour chaque liste
+    for (const list of lists) {
+      // créer un bloc de HTML dans notre page
+      app.makeListInDOM(list.name);
+    }
   },
 
   /**
