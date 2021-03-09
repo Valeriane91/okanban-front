@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pwitter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="panel timeline">
+            <div class="panel-heading">
+                Pwitter
+            </div>
+            <div class="panel-block pweet-form-container">
+                <!-- formulaire -->
+                <form action="" class="create-pweet-form">
+
+                    <div class="field">
+                        <label class="label">Message</label>
+                        <div class="control">
+                            <!-- attribut name = Le nom du champ qui sera rattaché à la donnée envoyée via le formulaire. -->
+                            <textarea class="textarea" name="message" 
+                                placeholder="Textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-link">Envoyer le pweet</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="panel-block column pweet-list">
+                <!-- liste des pweets -->
+
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- 
+        Une balise template sert à stocker du HTML
+     -->
+    <template id="pweetTemplate">
+        <div class="card pweet">
+            <div class="card-content">
+                <div class="content">
+                    <!-- Insérer ici le contenu du pweet -->
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+    
+</body>
+</html>
