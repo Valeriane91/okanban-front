@@ -194,4 +194,13 @@ const cardModule = {
 
     }
 
+    removeCard: async (request, response) => {
+        if (!request.session.list) {
+          await request.session.list = [];
+        }
+     
+        request.session.list = await request.session.list.filter( x =>  x.id != request.params.id);
+        return response(error);
+    }
+      
 }

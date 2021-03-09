@@ -211,7 +211,17 @@ const listModule = {
             console.log(error);   
         }
        
-
+    
+        
+}
+removeList: async (request, response) => {
+    if (!request.session.body) {
+      await request.session.body = [];
     }
+ 
+    request.session.body = await request.session.body.filter( x =>  x.id != request.params.id);
+    return response(error);
 
 }
+}
+
